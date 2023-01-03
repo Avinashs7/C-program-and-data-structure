@@ -1,0 +1,119 @@
+#include <stdio.h>
+#define m 10
+int F(char ch)
+{
+    switch(ch)
+    {
+        case '+':
+        case '-':
+        return 2;
+        case '*':
+        case '/':
+        case '%':
+        return 4;
+        case '^':
+        case '$':
+        return 5;
+        case '(':
+        return 0;
+        case '#':
+        return -1;
+        default :
+        return 8;
+    }
+}
+int G(char op)
+{
+    switch(op)
+    {
+        case '+':
+        case '-':
+        return 1;
+        case '*':
+        case '/':
+        case '%':
+        return 3;
+        case '^':
+        case '$':
+        return 6;
+        case '(':
+        return 9;
+        case ')':
+        return 0;
+        default :
+        return 7;
+    }
+}
+void push(char S[m],int *top,char elem)
+{
+    if((*top)==m-1)
+    printf("stack overflow\n");
+    else
+    (*top)++;
+    S[*top]=elem;
+}
+int pop(char S[m],int *top)
+{
+    int elem;
+    if((*top)==-1)
+    printf("underflow condition\n");
+    else
+    {
+        elem = S[*top];
+        (*top)--;
+    }
+    return elem;
+}
+void display(char S[m],int top)
+{
+    int i;
+    for(i=0; i<=top; i++)
+    printf("%c\t",S[i]);
+    printf("\n");
+}
+int main()
+{
+    char S[m],po[m],elem;
+    int i,j,op,top=-1,fl=0;
+    while(1)
+    {
+        printf("enter an option\n");
+        printf("1:push\n2:pop\n3:display\n");
+        scanf("%d",&op);
+        switch(op)
+        {
+            case 1: 
+            printf("enter an element to be pushed\n");
+            scanf(" %c",&elem);
+            push(S,&top,elem);
+            break;
+            case 2:
+            elem = pop(S,&top);
+            break;
+            case 3:
+            display(S,top);
+            break;
+            default:
+            fl=-1;
+        }
+        if(fl==-1)
+        break;
+    }
+    for(i=0; i<top; i++)
+    {
+        while(F(S[top])>G(S[i]))
+        {
+            po[j]=pop(S,&top);
+            j++;
+        }
+        if(F(S[top])!=G(S[i]))
+        push(S,&top,S[i]);
+        else
+        top--;
+    }
+    for(i=top; S[i]!='#'; i--,j++)
+    po[j]=S[i];
+    po[j]='\0';
+    printf("%s",po);
+    return 0;
+}

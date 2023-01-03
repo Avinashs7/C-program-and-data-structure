@@ -1,0 +1,71 @@
+#include<stdio.h>
+#include<string.h>
+#define m 20
+void push(char s[m][10],int *top,char elem[10])
+{
+    if(*top==m-1)
+    {
+        printf("overflow condition\n");
+        return;
+    }
+    (*top)++;
+    strcpy(s[*top],elem);
+}
+char *pop(char s[m][10],int *top)
+{
+    char *elem;
+    if(*top==-1)
+    {
+        printf("underflow condition\n");
+    }
+    else
+    {
+        strcpy(elem,s[*top]);
+        (*top)--;
+        return elem;
+    }
+}
+void display(char s[m][10],int top)
+{
+    if(top==-1)
+    printf("No elements to display in stack\n");
+    else
+    {
+        printf("Displaying the strings in stack\n");
+        for(int i=top;i>=0;i--)
+        {
+            printf("%s\n",s[i]);
+        }
+    }
+}
+int main()
+{
+    char s[m][10],elem[10],*ele;
+    int op,top=-1;
+    while(1)
+    {
+        op=4;
+        printf("enter an option\n");
+        printf("1:push\n2:pop\n3:display\n");
+        scanf("%d",&op);
+        switch(op)
+        {
+            case 1:
+            printf("enter a string to be pushed\n");
+            scanf("%s",elem);
+            push(s,&top,elem);
+            break;
+            case 2:
+            ele=pop(s,&top);
+            printf("%s is the string poped\n",ele);
+            break;
+            case 3:
+            display(s,top);
+            break;
+            default:
+            printf("invalid operation\n");
+            return 0;
+        }
+    }
+    return 0;
+}

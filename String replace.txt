@@ -1,0 +1,70 @@
+#include<stdio.h>
+void str_find(char *ms, char *ss, int *n,int pos[10])
+{
+    int i,j,k,l,m;
+    for(i=0; ms[i]!='\0'; i++);
+    for(j=0; ss[j]!='\0'; j++);
+    for(k=0; k<i; k++)
+    {
+        int count =0;
+        for(m=0,l=k; m<j; m++,l++)
+        {
+            if(ms[l]==ss[m])
+            count++;
+            if(count==j)
+            {
+                pos[(*n)]=k;
+                (*n)++;
+            }
+        }
+    }
+}
+void replace(char *ms,char *ss,int n,int pos[10])
+{
+    char new[100];
+    char s1[100];
+    int i,k,l,m,j,o;
+    printf("enter the string to be replaced\n");
+    scanf("%s",s1);
+    for(i=0; ms[i]!='\0'; i++);  //length of ms
+    for(j=0; ss[j]!='\0'; j++);  //length of ss
+    for(k=0; s1[k]!='\0'; k++);  //length of replace
+    int len=i-(n)*j+k*(n);
+    int c=0;
+    for(o=0,l=0; l<len; o++,l++)
+    {
+        if(pos[c]==o)
+        {
+            c++;
+            for(m=0; s1[m]!='\0'; m++)
+            {
+                new[l]=s1[m];
+                l++;
+            }
+            o=o+j-1;
+            l=l-1;
+        }
+        else
+        {
+            new[l]=ms[o];
+        }
+    }
+        new[l]='\0';
+    printf("%s",new);
+}
+int main()
+{
+    char ms[100],ss[100];
+    int pos[10];
+    int n=0;
+    printf("enter string\n");
+    scanf("%s",ms);
+    printf("enter sub string\n");
+    scanf("%s",ss);
+    str_find(ms,ss,&n,pos);
+    for(int i=0; i<n; i++)
+    printf("%d\t",pos[i]);
+    printf("\n");
+    replace(ms,ss,n,pos);
+    return 0;
+}
