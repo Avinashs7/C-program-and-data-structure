@@ -38,6 +38,38 @@ void insert_rear(NODE head,int elem)
 	}
 	curr->link=temp;
 }
+int count(NODE head)
+{
+	int c=0;
+	NODE curr=head->link;
+	while(curr!=head)
+	{
+		c++;
+		curr=curr->link;
+	}
+	return c;
+}
+void insert(NODE head,int elem,int pos)
+{
+	if(pos>=0 && pos<=count(head))
+	{
+		NODE temp,pre=head,curr=head->link;
+		temp=getnode();
+		temp->info=elem;
+		while(pos--)
+		{
+			pre=curr;
+			curr=curr->link;
+		}
+		temp->link=curr;
+		pre->link=temp;
+		
+	}
+	else
+	{
+		printf("Insertion not possible\n");
+	}
+}
 void delete_front(NODE head)
 {
 	NODE curr;
@@ -88,16 +120,17 @@ void display(NODE head)
 		printf("\n");
 	}
 }
+
 int main()
 {
-	int op,elem;
+	int op,elem,n,pos;
 	NODE head;
 	head=getnode();
 	head->link=head;
 	while(1)
 	{
 		printf("Enter an option\n");
-		printf("1:insert front\n2:insert rear\n3:delete front\n4:delete rear\n5:display\n");
+		printf("1:insert front\n2:insert rear\n3:delete front\n4:delete rear\n5:display\n6: count number of nodes\n7: insert at a specific position\n");
 		scanf("%d",&op);
 		switch(op)
 		{
@@ -119,6 +152,17 @@ int main()
 			break;
 			case 5:
 			display(head);
+			break;
+			case 6:
+			n=count(head);
+			printf("There are %d number of nodes in CSLL\n",n);
+			break;
+			case 7:
+			printf("Enter an element to be inserted\n");
+			scanf("%d",&elem);
+			printf("Enter the position\n");
+			scanf("%d",&pos);
+			insert(head,elem,pos);
 			break;
 			default :
 			printf("invalid option\n");

@@ -88,16 +88,27 @@ void display(NODE head)
 		printf("\n");
 	}
 }
+int count(NODE head)
+{
+	int c=0;
+	NODE curr=head->link;
+	while(curr!=head)
+	{
+		c++;
+		curr=curr->link;
+	}
+	return c;
+}
 int main()
 {
-	int op,elem;
+	int op,elem,n;
 	NODE head;
 	head=getnode();
 	head->link=head;
 	while(1)
 	{
 		printf("Enter an option\n");
-		printf("1:insert front\n2:insert rear\n3:delete front\n4:delete rear\n5:display\n");
+		printf("1:insert front\n2:insert rear\n3:delete front\n4:delete rear\n5:display\n6: count number of nodes\n");
 		scanf("%d",&op);
 		switch(op)
 		{
@@ -119,6 +130,10 @@ int main()
 			break;
 			case 5:
 			display(head);
+			break;
+			case 6:
+			n=count(head);
+			printf("There are %d number of nodes in CSLL\n",n);
 			break;
 			default :
 			printf("invalid option\n");

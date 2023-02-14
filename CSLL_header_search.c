@@ -38,6 +38,7 @@ void insert_rear(NODE head,int elem)
 	}
 	curr->link=temp;
 }
+
 void delete_front(NODE head)
 {
 	NODE curr;
@@ -88,16 +89,32 @@ void display(NODE head)
 		printf("\n");
 	}
 }
+void search(NODE head,int key)
+{
+	int i=0;
+	NODE curr=head->link;
+	while(curr!=head)
+	{
+		if(curr->info == key)
+		{
+			printf("The element is found in node %d\n",i);
+			return;
+		}
+		i++;
+		curr=curr->link;
+	}
+	printf("The element is not found\n");
+}
 int main()
 {
-	int op,elem;
+	int op,elem,n,key;
 	NODE head;
 	head=getnode();
 	head->link=head;
 	while(1)
 	{
 		printf("Enter an option\n");
-		printf("1:insert front\n2:insert rear\n3:delete front\n4:delete rear\n5:display\n");
+		printf("1:insert front\n2:insert rear\n3:delete front\n4:delete rear\n5:display\n6: count number of nodes\n7: insert at a specific position\n");
 		scanf("%d",&op);
 		switch(op)
 		{
@@ -119,6 +136,11 @@ int main()
 			break;
 			case 5:
 			display(head);
+			break;
+			case 6:
+			printf("Enter an element to be searched\n");
+			scanf("%d",&key);
+			search(head,key);
 			break;
 			default :
 			printf("invalid option\n");
