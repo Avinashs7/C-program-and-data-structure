@@ -1,3 +1,5 @@
+/*Circular linked list with header has the head node which overcomes the disadvantages faced while using linked list, this makes traversing very easy 
+and end node has head node address has in it's link field*/
 #include<stdio.h>
 #include<stdlib.h>
 struct node 
